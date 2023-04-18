@@ -1,13 +1,21 @@
 import mysql.connector
 
+
 logged_in = False
 connection = mysql.connector.connect(user = "root", database = "bank", password = "Arfrfkcmc06")
 answer = ""
 cursor = connection.cursor()
+
 def deposit(name, amount):
-    money = ("Select balance From user_data WHERE User_name = " + name)
-    cursor.execute(money)
     
+    money = ("UPDATE user_data SET balance = balance + " + str(amount) + " WHERE User_name = " + name)
+    cursor.execute(money)
+    connection.commit()
+
+    print("added " + str(amount) + " to your balance")
+
+
+
 while True:
     info = ("SELECT User_name, Password FROM user_data")
 
